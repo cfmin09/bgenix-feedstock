@@ -10,20 +10,24 @@ source:
 
 build:
   skip: true  # [win]
-  number: 4
+  number: 5
+  run_exports:
+    - {{ pin_subpackage('bgenix', max_pin="x.x") }}
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}        # [x86_64]
   host:
-    - boost {{ boost }}
-    - boost-cpp {{ boost }}
+    - boost-cpp >=1.72.0
+    - python                   # [linux and aarch64]
     - sqlite
     - zlib
     - zstd
   run:
-    - boost-cpp {{ boost }}
+    - boost-cpp >=1.72.0
+    - python                   # [linux and aarch64]
 
 test:
   source_files:

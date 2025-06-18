@@ -12,6 +12,10 @@ jobs:
         CONFIG: linux_64_
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-comp7
+      linux_aarch64_:
+        CONFIG: linux_aarch64_
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
   timeoutInMinutes: 360
 
   steps:
@@ -27,6 +31,12 @@ jobs:
       ls /proc/sys/fs/binfmt_misc/
     condition: not(startsWith(variables['CONFIG'], 'linux_64'))
     displayName: Configure binfmt_misc
+
+  - script: |
+      docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      ls /proc/sys/fs/binfmt_misc/
+    condition: and(succeeded(), contains(variables['CONFIG'], 'aarch64'))
+    displayName: Configure binfmt_misc for ARM
 
   - script: |
         export CI=azure
