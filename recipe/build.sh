@@ -19,6 +19,5 @@ elif [[ ${target_platform} == "osx-64" ]]; then
       --libdir=${PREFIX}/lib \
       --jobs=${CPU_COUNT} \
       CFLAGS="${CFLAGS} -I${PREFIX}/include -I${PREFIX}/include/boost" \
-      CXXFLAGS="${CXXFLAGS} -std=c++11" \
       LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
 fi
