@@ -1,8 +1,6 @@
 #!/bin/bash
 
-os_unames=$(uname -s)
-
-if [[ ${os_unames} == "Linux" ]]; then
+if [[ ${target_platform} == "linux-64" ]] || [[ ${target_platform} == "linux-aarch64" ]]; then
   sed -i 's/std\:\:ios\:\:streampos/std\:\:streampos/' src/View.cpp
   ./waf configure build install \
       --prefix=${PREFIX} \
@@ -11,7 +9,7 @@ if [[ ${os_unames} == "Linux" ]]; then
       --jobs=${CPU_COUNT} \
       CFLAGS="${CFLAGS} -I${PREFIX}/include -I${PREFIX}/include/boost" \
       LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
-else
+elif [[ ${target_platform} == "osx-64" ]]; then
   ./waf configure build install \
       --prefix=${PREFIX} \
       --bindir=${PREFIX}/bin \
