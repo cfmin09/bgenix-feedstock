@@ -2,6 +2,8 @@
 # update the conda-forge.yml and/or the recipe/meta.yaml.
 # -*- mode: jinja-yaml -*-
 
+# -*- mode: jinja-yaml -*-
+
 version: 2
 
 jobs:
@@ -13,7 +15,6 @@ jobs:
       - run:
           # The Circle-CI build should not be active, but if this is not true for some reason, do a fast finish.
           command: exit 0
-
 workflows:
   version: 2
   build_and_test:
