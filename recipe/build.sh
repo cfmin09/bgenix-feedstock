@@ -1,10 +1,9 @@
 #!/bin/bash
 
 if [[ ${target_platform} == "linux-64" ]] || [[ ${target_platform} == "linux-aarch64" ]]; then
-  sed -i 's/std::ios::streampos/std::streampos/g' src/View.cpp
+  sed -i "s/\[[[:space:]]*'-O3'[[:space:]]*\]/['-O3', '-std=c++11']/g" wscript
 elif [[ ${target_platform} == "osx-64" ]]; then
-  sed -i '' "s/std::ios::streampos/std::streampos/g" src/View.cpp
-  sed -i '' "s/cxxflags=\[\]/cxxflags=\['-std=c++11'\]/g" db/wscript
+  sed -i '' "s/\[[[:space:]]*'-O3'[[:space:]]*\]/['-O3', '-std=c++11']/g" wscript
 fi
 
 ./waf configure build install \
